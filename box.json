@@ -1,0 +1,49 @@
+{
+    "name":"MailjetProtocol",
+    "version":"1.0.0",
+    "author":"Andreas Eppinger <andreas.eppinger@webwaysag.ch>",
+    "location":"eppinger/mailjet-protocol#v1.0.0",
+    "homepage":"https://github.com/eppinger/mailjet-protocol",
+    "documentation":"https://github.com/eppinger/mailjet-protocol",
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/eppinger/mailjet-protocol"
+    },
+    "bugs":"https://github.com/eppinger/mailjet-protocol/issues",
+    "slug":"mailjet-protocol",
+    "shortDescription":"A cbmailservices protocol for Mailjet",
+    "description":"A cbmailservices protocol for Mailjet",
+    "type":"modules",
+    "keywords":[
+        "mail",
+        "mailjet",
+        "cbmailservices"
+    ],
+    "private":false,
+    "license":[
+        {
+            "type":"MIT",
+            "URL":"https://github.com/eppinger/mailjet-protocol"
+        }
+    ],
+    "contributors":[
+        "Andreas Eppinger <andreas.eppinger@webwaysag.ch>"
+    ],
+    "dependencies":{},
+    "devDependencies":{
+        "testbox":"^4.3.0",
+        "cbmailservices":"^1.5.0"
+    },
+    "installPaths":{
+        "testbox":"testbox",
+        "cbmailservices":"modules/cbmailservices"
+    },
+    "scripts":{
+        "postVersion":"package set location='eppinger/mailjet-protocol#v`package version`'"
+    },
+    "ignore":[
+        "**/.*",
+        "test",
+        "tests"
+    ]
+}
