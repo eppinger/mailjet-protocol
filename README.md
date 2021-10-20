@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/elpete/send-grid-protocol.svg?branch=master)](https://travis-ci.org/elpete/send-grid-protocol)
 
-## A [`cbmailservices`](https://github.com/ColdBox/cbox-mailservices) protocol for sending email via Mailjet. Based on the Send Grid Protocol (https://github.com/elpete/send-grid-protocol) from Eric Peterson
+## A [`cbmailservices`](https://github.com/ColdBox/cbox-mailservices) protocol for sending email via Mailjet. 
+
+Based on the Send Grid Protocol (https://github.com/elpete/send-grid-protocol) from Eric Peterson
 
 > In `cbmailservices` parlance, a `protocol` is a method of sending an email.  Protocols can be switched out based on environment settings making it easy to log a mail to a file in development, send it to an in-memory store for asserting against in tests, and sending to real services in production.
 
