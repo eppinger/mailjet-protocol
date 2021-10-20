@@ -103,7 +103,8 @@ component extends="cbmailservices.models.AbstractProtocol" {
 
 											return {
 												'Base64Content': '#toBase64(fileReadBinary(mailParam.file))#',
-												'Filename': listLast(mailParam.file, '/')
+												'Filename': listLast(mailParam.file, '/'),
+												'ContentType': getFileMimeType(mailParam.file)
 											};
 
 										});
@@ -147,6 +148,15 @@ writeDump(var=body,expand=true);
 		}
 
 		return returnStruct;
+	}
+
+
+	/**
+	 * I calculate the MIME type for a given file.
+	 */
+	private string function getFileMimeType(required string filePath) {
+		//  Return the mime type of this file.
+		return getPageContext().getServletContext().getMimeType(arguments.filePath);
 	}
 
 }
