@@ -111,8 +111,13 @@ component extends="cbmailservices.models.AbstractProtocol" {
 
 		// Im Moment gibt es nur die Möglichkeit eine hohe Prio zu setzen
 		if ( structkeyExists( mail, 'priority' ) && len(mail.priority) ){
-			body[ 'headers' ] = {'Priority': 'Urgent', 'Importance': 'high', 'X-Priority': '1'};
+			if (  IsValid("integer",mail.priority) ) {
+				body[ 'Priority' ] = JavaCast("integer",mail.priority) ;
+			} else if (mail.priority == "high") {
+				body[ 'Priority' ] = JavaCast("integer",2);
+			}
 		}
+
 var messageData = {"Messages":[body]};
 var messages = [];
 writeDump(var=messageData,expand=true);
