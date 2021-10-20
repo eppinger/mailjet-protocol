@@ -119,26 +119,15 @@ component extends="cbmailservices.models.AbstractProtocol" {
 			}
 		}
 
-var messageData = {"Messages":[body]};
-var messages = [];
-writeDump(var=messageData,expand=true);
-writeDump(var=serializeJson( messageData ),expand=true);
-writeDump(var=body,expand=true);
-
-
-
 		cfhttp( url = "https://api.mailjet.com/v3.1/send", method = "POST" ) {
-			// cfhttpparam( type = "header", name = "Authorization", value="Bearer #getProperty( "apiKey" )#" );
 			cfhttpparam( type = "header", name = "Authorization", value="Basic #ToBase64("#getProperty( "apiKey" )#:#getProperty( "apisecret" )#")#" );
 			cfhttpparam( type = "header", name = "Content-Type", value="application/json" );
 			cfhttpparam( type = "body", value = serializeJson( messageData ) );
 		};
 		writeDump(var=deserializeJSON( cfhttp.filecontent ),expand=true,label="httpResult");
-		if ( left( cfhttp.status_code, 1 ) != "2" && left( cfhttp.status_code, 1 ) != "3"  ) {
-			writeDump(var=deserializeJSON( cfhttp.filecontent ),expand=true);
-			abort;
 
-			returnStruct.errorArray = deserializeJSON( cfhttp.filecontent ).errors;
+		if ( left( cfhttp.status_code, 1 ) != "2" && left( cfhttp.status_code, 1 ) != "3"  ) {
+			returnStruct.errorArray = deserializeJSON( cfhttp.filecontent ).messages;
 		}
 		else {
 			returnStruct.error = false;
