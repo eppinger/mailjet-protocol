@@ -6,6 +6,7 @@ component extends="cbmailservices.models.AbstractProtocol" {
 	* @properties A map of configuration properties for the protocol
 	*/
 	public MailjetProtocol function init( struct properties = {} ) {
+		variables.name = "Mailjet";
 		super.init( argumentCollection = arguments );
 
 		if ( ! structKeyExists( properties, "apiKey" ) ) {
