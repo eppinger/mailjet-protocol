@@ -83,15 +83,10 @@ component extends="cbmailservices.models.AbstractProtocol" {
 			body[ "TemplateID" ] = mail.body;
 			//personalization[ "substitutions" ] = mail.bodyTokens;
 		} else if (type == "HTML") {
-
 			body[ "HTMLPart" ] = "#mail.body#";
-
 		} else if (type == "plain") {
-
 			body[ "TextPart" ] = "#mail.body#";
-
 		}
-
 
 		//body[ "personalizations" ] = [ personalization ];
 
@@ -125,7 +120,6 @@ component extends="cbmailservices.models.AbstractProtocol" {
 			cfhttpparam( type = "header", name = "Content-Type", value="application/json" );
 			cfhttpparam( type = "body", value = serializeJson( messageData ) );
 		};
-		writeDump(var=deserializeJSON( cfhttp.filecontent ),expand=true,label="httpResult");
 
 		if ( left( cfhttp.status_code, 1 ) != "2" && left( cfhttp.status_code, 1 ) != "3"  ) {
 			returnStruct.errorArray = deserializeJSON( cfhttp.filecontent ).messages;
