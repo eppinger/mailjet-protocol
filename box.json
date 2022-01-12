@@ -39,7 +39,10 @@
         "cbmailservices":"modules/cbmailservices"
     },
     "scripts":{
-        "postVersion":"package set location='eppinger/mailjet-protocol#v`package version`'"
+        "postVersion":"package set location='eppinger/mailjet-protocol#v`package version`'",
+        "format":"cfformat run handlers/,interceptors/,models/,test-harness/tests/specs,ModuleConfig.cfc --overwrite",
+        "format:watch":"cfformat watch handlers/,interceptors/,models/,test-harness/tests/specs,ModuleConfig.cfc ./.cfformat.json",
+        "format:check":"cfformat check handlers/,interceptors/,models/,test-harness/tests/specs,ModuleConfig.cfc"
     },
     "ignore":[
         "**/.*",
