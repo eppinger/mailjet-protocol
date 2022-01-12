@@ -23,7 +23,8 @@ component extends="cbmailservices.models.AbstractProtocol" {
 	*/
 	public function send( required cbmailservices.models.Mail payload ) {
 		var returnStruct = {error=true, errorArray=[], messageID=''};
-		var mail      = payload.getMemento();
+		var mail         = payload.getMemento();
+		var httpResponse = '';
 
 		var body = {
 			"From": {
@@ -115,20 +116,23 @@ component extends="cbmailservices.models.AbstractProtocol" {
 			}
 		}
 
-		cfhttp( url = "https://api.mailjet.com/v3.1/send", method = "POST" ) {
+		cfhttp( url = "https://api.mailjet.com/v3.1/send", method = "POST", result="httpResponse" ) {
 			cfhttpparam( type = "header", name = "Authorization", value="Basic #ToBase64("#getProperty( "apiKey" )#:#getProperty( "apisecret" )#")#" );
 			cfhttpparam( type = "header", name = "Content-Type", value="application/json" );
 			cfhttpparam( type = "body", value = serializeJson( messageData ) );
 		};
 
-		if ( left( cfhttp.status_code, 1 ) != "2" && left( cfhttp.status_code, 1 ) != "3"  ) {
-			returnStruct.errorArray = deserializeJSON( cfhttp.filecontent ).messages;
+		// if not defined, timeout
+		httpResponse.status_code ?: "504";
+
+		if ( left( httpResponse.status_code, 1 ) != "2" && left( httpResponse.status_code, 1 ) != "3"  ) {
+			returnStruct.errorArray = deserializeJSON( httpResponse.filecontent ).messages;
 		}
 		else {
 			returnStruct.error = false;
 		}
-		if ( StructKeyExists(cfhttp,'responseheader') AND StructKeyExists(cfhttp.responseheader,'X-Message-Id') ) {
-			returnStruct.messageID = cfhttp.responseheader['X-Message-Id'];
+		if ( StructKeyExists(httpResponse,'responseheader') AND StructKeyExists(httpResponse.responseheader,'X-Message-Id') ) {
+			returnStruct.messageID = httpResponse.responseheader['X-Message-Id'];
 		}
 
 		return returnStruct;
